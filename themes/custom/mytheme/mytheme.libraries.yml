@@ -1,0 +1,3 @@
+mytheme-js:
+  js:
+    https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js: { type: external, minified: true }
