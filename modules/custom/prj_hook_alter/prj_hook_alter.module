@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * This is the Custom module Prj_hook_alter for customizing the website using drupal hooks.
+ */
+
+function prj_hook_alter_form_system_site_information_settings_alter(&$form, $form_state, $form_id) {
+ // Adding new field to the Site information form
+  $form['site_information']['siteapikey'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Site API Key'),
+    '#default_value' => \Drupal::config('system.site')->get('siteapikey') ?: 'No API Key yet',
+    '#description' => t('An API Key to access site pages in JSON format.'),
+  );
+
+  //Altering the submit button text in the site information form
+  $form['actions']['submit']['#value'] = t('Update Configuration');
+
+  // Handling form submission --- to save the new field value
+  $form['#submit'][] = 'prj_hook_alter_submit';
+}
+
+function prj_hook_alter_submit($form, &$form_state) {
+// Update the system variable Site API Key
+  $config = \Drupal::configFactory()->getEditable('system.site');
+  $apiKey = $form_state->getValue(['siteapikey']);
+  $config->set('siteapikey', $apiKey);
+  $config->save();
+
+  // Add message that Site API Key has been set
+  drupal_set_message("Site API key is successfully updated with " . $apiKey);
+}

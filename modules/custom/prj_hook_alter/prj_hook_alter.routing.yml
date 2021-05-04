@@ -1,0 +1,13 @@
+prj_hook_alter.nodeJson:
+  path: '/page_json/{apikey}/{node}'
+  defaults:
+    _controller: '\Drupal\prj_hook_alter\Controller\PrjHookAlterController::content'
+  options:
+    _node_operation_route: TRUE
+    parameters:
+      node:
+        type: entity:node
+  requirements:
+    _permission: 'access content'
+    _custom_access: '\Drupal\prj_hook_alter\Controller\PrjHookAlterController::access'
+

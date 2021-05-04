@@ -1,0 +1,5 @@
+name: 'Project hook customization'
+type: 'module'
+core: '8.x'
+package: 'Custom Module'
+description: 'Project related hook customization code goes in this module'
